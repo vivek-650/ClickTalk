@@ -5,41 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Room</title>
     <link rel="stylesheet" href="createroom.css">
+    <link rel="logo" href="/images/Logo.png">
 </head>
 <body>
     <div class="container">
         <header class="row text-center">
           <div class="col logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Goodreads_logo.svg/2560px-Goodreads_logo.svg.png" alt="goodreads-logo" />
+            <img src="/images/Logo.png" alt="clicktalk-logo" />
           </div>
+          <h1>Click Talk</h1>
         </header>
-        <main class="main row">
-          <div class="left col">
-            <img src="https://img.freepik.com/premium-vector/young-woman-enjoy-sitting-reading-book-hygge-concept-vector-illustration_194708-2078.jpg" alt="girl-reading-a-book"/>
-          </div>
-          <div class="right col">
-            <form class="sign-up">
-              <h4>Find your next favorite book!</h4>
-              <div class="mb-3">
-                 <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="Enter your email">
-              </div>
-              <div class="mb-3">
-                 <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Create a password">
-              </div>
-              <button type="submit" class="btn submit-btn">Create account</button>
-            </form>
-            <p class="hr-lines"> OR </p>
-            <div class="social-sign-up">
-              <button class="btn social"><i class="fa-brands fa-google"></i> Sign up with Google</button>
+        
+        <div class="main row">
+
+            <div class="left">
+              <video src="/images/video1.mp4" autoplay muted></video>
             </div>
-            <div class="sign-in">
-              <p>Already have an account? <a href="#">Log in</a></p>
+  
+            <div class="right">
+              <form class="sign-up" action="./room.ejs" >
+                <h4>Create Your Room</h4>
+                <div class="mb-3 input-container">
+                  <input type="text" name="name" id="input" class="input" >
+                  <label for="name" class="form-label label">Your Name</label>
+                  <div class="underline"></div>
+                </div>
+                <div class="mb-3 input-container">
+                  <input type="text" name="room-name" id="input" class="input" >
+                  <label for="room-name" class="form-label label">Room Name</label>
+                  <div class="underline"></div>
+                </div>
+                <button type="submit" class="btn submit-btn">Go to Room →</button>
+              </form>
+  
             </div>
+          
           </div>
-        </main>
-      </div>
+
+
+    </div>
         
 </body>
 </html>
