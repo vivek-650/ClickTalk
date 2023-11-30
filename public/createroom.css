@@ -1,7 +1,7 @@
 
 body {
   background-color: #F2E8E4;
-  margin: 2em;
+  /* margin: 2em; */
 }
 
 header {
@@ -99,4 +99,6 @@ p {
   text-align: center;
 }
 
-
+.logo img{
+  height: 5rem;
+}
