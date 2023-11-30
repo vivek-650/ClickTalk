@@ -18,7 +18,9 @@ app.get("/create", (req, res) =>{
     res.render("createroom.ejs")
 })
 
-
+app.get("/room", (req,res)=>{
+    res.render("room.ejs")
+})
 app.listen(port, ()=>{
     console.log(`Listening port ${port}`);
 })
