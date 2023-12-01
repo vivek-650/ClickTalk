@@ -1,26 +1,47 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
+const express = require('express')
+const app = express()
+// const cors = require('cors')
+// app.use(cors())
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+const { ExpressPeerServer } = require('peer');
+const peerServer = ExpressPeerServer(server, {
+  debug: true
+});
+const { v4: uuidV4 } = require('uuid')
 
-const app = express();
+app.use('/peerjs', peerServer);
 
-const port = 3000;
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
 
-app.set("views", path.join(__dirname, "views"));
-app.set("views engine", "ejs");
-app.use(express.static(path.join(__dirname,"public")));
-
-app.get("/", (req, res)=>{
-    res.render("index.ejs")
+app.get('/', (req, res) => {
+    // res.render("index")
+  res.redirect(`/${uuidV4()}`)
 })
 
-app.get("/create", (req, res) =>{
+app.get("/create", (req,res)=>{
     res.render("createroom.ejs")
 })
 
-app.get("/room", (req,res)=>{
-    res.render("room.ejs")
+app.get('/:room', (req, res) => {
+  res.render('room', { roomId: req.params.room })
 })
-app.listen(port, ()=>{
-    console.log(`Listening port ${port}`);
+
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.to(roomId).broadcast.emit('user-connected', userId);
+    // messages
+    socket.on('message', (message) => {
+      //send message to the same room
+      io.to(roomId).emit('createMessage', message)
+  }); 
+
+    socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+    })
+  })
 })
+
+server.listen(process.env.PORT||9999)
