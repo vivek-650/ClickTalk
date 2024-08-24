@@ -31,6 +31,7 @@ navigator.mediaDevices.getUserMedia({
     })
   })
 
+<<<<<<< HEAD
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream)
   })
@@ -41,6 +42,48 @@ navigator.mediaDevices.getUserMedia({
     if (e.which == 13 && text.val().length !== 0) {
       socket.emit('message', text.val());
       text.val('')
+=======
+    peer.on("call", (call) => {
+      call.answer(stream);
+      const video = document.createElement("video");
+      call.on("stream", (userVideoStream) => {
+        addVideoStream(video, userVideoStream);
+      });
+    });
+
+    socket.on("user-connected", (userId) => {
+      connectToNewUser(userId, stream);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.which === 13 && chatInputBox.value != "") {
+        socket.emit("message", chatInputBox.value);
+        chatInputBox.value = "";
+      }
+    });
+
+    socket.on("createMessage", (msg) => {
+      console.log(msg);
+      let li = document.createElement("li");
+      li.innerHTML = msg;
+      all_messages.append(li);
+      main__chat__window.scrollTop = main__chat__window.scrollHeight;
+    });
+  });
+
+peer.on("call", function (call) {
+  getUserMedia(
+    { video: true, audio: true },
+    function (stream) {
+      call.answer(stream); // Answer the call with an A/V stream.
+      const video = document.createElement("video");
+      call.on("stream", function (remoteStream) {
+        addVideoStream(video, remoteStream);
+      });
+    },
+    function (err) {
+      console.log("Failed to get local stream", err);
+>>>>>>> 077118e03cd23c59b0c251a56bb0563414deeac4
     }
   });
   socket.on("createMessage", message => {
