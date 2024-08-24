@@ -36,6 +36,7 @@ io.on('connection', socket => {
     // messages
     socket.on('message', (message) => {
       //send message to the same room
+      //send message to the same room
       io.to(roomId).emit('createMessage', message)
   }); 
 
